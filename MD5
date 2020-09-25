@@ -1,0 +1,16 @@
+602385bc211a11c26bdd161a656d5019 *DESCRIPTION
+576d0a06c59703c8ec81fb413109e919 *NAMESPACE
+b24df4d04fb78c5bb467975722d11517 *R/accum.sample.R
+d3645e56b9f8c8ebaa087dbbef4a1dd6 *R/com.compute.log.z.R
+274e097ca0cf4e57a6bb5e653c15019b *R/com.log.density.R
+c4e0728f16c3f099d88188b92be264b6 *R/com.log.difference.R
+36f8bf44484655310afb32c621d799b0 *R/com.log.factorial.R
+f1a8cb8c8234f140314008c64ef33779 *R/com.log.sum.R
+712e6be852edc17705147d745ba9af03 *R/global.R
+c028fc175b03f153e331c9bd61a2e9d3 *R/rcom.R
+82fa09c8cb612ba8c2d8e862f28bd4c0 *R/recEvFit.R
+c32776d052d33861347b851b735ad2e9 *data/sim.data.RData
+16b05711b2766825e16c3359f4726a16 *man/miRecSurv-internal.Rd
+0cc2a2700e65a1d9ce823351b1416c85 *man/miRecSurv-package.Rd
+bab3a41db10243bb95fde6cee3975a40 *man/recEvFit.Rd
+322fc6e6eb53f1628ebd8394a262b356 *man/sim.data.Rd
