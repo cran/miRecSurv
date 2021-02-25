@@ -8,6 +8,8 @@
 \alias{com.log.sum}
 \alias{rcom}
 \alias{accum.sample}
+\alias{summary.recEvFit}
+\alias{print.summary.recEvFit}
 
 \title{Internal miRecSurv functions}
 \description{Internal miRecSurv functions}
@@ -19,6 +21,8 @@ com.log.factorial(x)
 com.log.sum(x, y)
 rcom(n, lambda, nu, log.z = NULL)
 accum.sample(data, id, status, covars, riskBef, oldInd) 
+\method{summary}{recEvFit}(object, ...)
+\method{print.summary}{recEvFit}(x, ...)
 }
 
 \details{These functions are not to be called by the user.}

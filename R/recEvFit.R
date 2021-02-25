@@ -1,5 +1,5 @@
 recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
-                     frailty=FALSE, m=5, seed=NA)
+                     frailty=FALSE, m=5, seed=NA, ...)
 {
   complete.eprev <- function(data, id_n, id, var){
     Daux <- data[data[, id]==id_n,]
@@ -34,6 +34,8 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   for (i in 1:length(covars))
   {
     covars[i] <- gsub(" ", "", covars[i])
+    covars[i] <- gsub("as.factor\\(", "", covars[i])
+    covars[i] <- gsub("\\)", "", covars[i])
   }
   data[, oldInd][is.na(data[, oldInd])] <- 0
   data$oldInd2 <- ifelse(data[, oldInd] < 0, (-1)*data[, oldInd], data[, oldInd])
@@ -74,11 +76,7 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   }
   if (frailty==TRUE) d <- dim(X)[2]+1
   if (frailty==FALSE) d <- dim(X)[2]
-  p_vals  <- matrix(nrow=d, ncol=m)
-  coefs   <- matrix(nrow=d, ncol=m)
-  expcoef <- matrix(nrow=d, ncol=m)
-  sds     <- matrix(nrow=d, ncol=m)
-  
+  out <- list()
   if (frailty==TRUE)
   {
     for (i in 1:m)
@@ -86,38 +84,34 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
       eval(parse(text=paste0("modPWP <-
       coxph(", deparse(formula),
                 "+strata(as.factor(100000*", riskBef, "+EprevCOMPoissDef", i, "))+oldInd2+
-                 frailty(", id, "), data=data)")))
-      coefs[, i]   <- summary(modPWP)$coefficients[, 1]
-      expcoef[, i] <- exp(summary(modPWP)$coefficients[, 1])
-      sds[, i]     <- summary(modPWP)$coefficients[, 2]
-      p_vals[, i]  <- summary(modPWP)$coefficients[, 6]
+                 frailty(", id, "), data=data, ...)")))
+      out[[i]] <- modPWP
     }
   }else{
     for (i in 1:m)
     {
       eval(parse(text=paste0("modPWP <-
       coxph(", deparse(formula),
-                  "+strata(as.factor(100000*", riskBef, "+EprevCOMPoissDef", i, "))+oldInd2, data=data)")))
-      coefs[, i]   <- summary(modPWP)$coefficients[, 1]
-      expcoef[, i] <- summary(modPWP)$coefficients[, 2]
-      sds[, i]     <- summary(modPWP)$coefficients[, 3]
-      p_vals[, i]  <- summary(modPWP)$coefficients[, 5]
+                  "+strata(as.factor(100000*", riskBef, "+EprevCOMPoissDef", i, "))+oldInd2, data=data, ...)")))
+      out[[i]] <- modPWP
     }
   }
   data$oldInd2 <- NULL
   data$ft <- NULL
-  gcoef <- rowMeans(coefs)
-  expco <- exp(gcoef)
-  wvar  <- (1/m)*rowSums(sds^2)
-  bvar  <- (1/(m-1))*rowSums((coefs-gcoef)^2)
-  gsd   <- sqrt(wvar+(1+1/m)*bvar)
-  pvalsf<- rowMedians(p_vals)
-  res <- list()
-  res[[1]] <- data
-  res[[2]] <- cbind(gcoef, expco, gsd, pvalsf)
-  colnames(res[[2]]) <- c("coef", "exp(coef)", "se(coef)", "Pr(>|z|)")
-  if (frailty==TRUE) rownames(res[[2]]) <- c(colnames(X)[2:length(colnames(X))], oldInd, "frailty")
-  if (frailty==FALSE) rownames(res[[2]]) <- c(colnames(X)[2:length(colnames(X))], oldInd)
-  class(res) <- "recEvFit"
-  return(res)
+  
+  output <- list()
+  output$fit <- out
+  output$coeff <- lapply(out, coefficients)
+  output$loglik <- lapply(out, logLik)
+  output$vcov <- lapply(out, vcov)
+  output$AIC <- lapply(out, AIC)
+  output$CMP <- mod
+  output$data.impute <- data
+  attr(output, "Call") <- Call 
+  attr(output, "frailty") <- frailty
+  attr(output, "m") <- m
+  attr(output, "X") <- X
+  attr(output, "oldInd") <- oldInd
+  class(output) <- "recEvFit"
+  return(output)
 }

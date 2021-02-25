@@ -1,5 +1,8 @@
 exportPattern("^[[:alpha:]]+")
 
+S3method(print, summary.recEvFit)
+S3method(summary, recEvFit)
+
 # Import all packages listed as Imports or Depends
 import(
   COMPoissonReg, matrixStats, stringi
@@ -11,3 +14,4 @@ importFrom("survival", "Surv")
 importFrom("stats", "coef", "model.matrix", "model.response",
              "na.omit", "rnorm", "runif", "vcov")
 importFrom("stringi", "stri_extract_all_words")
+importFrom("stats", "AIC", "coefficients", "logLik")
