@@ -14,8 +14,8 @@ Left-censored recurrent event analysis in epidemiological studies: a proposal wh
 \tabular{ll}{
 Package: \tab miRecSurv\cr
 Type: \tab Package\cr
-Version: \tab 1.0.1\cr
-Date: \tab 2021-2-25\cr
+Version: \tab 1.0.2\cr
+Date: \tab 2021-8-17\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }

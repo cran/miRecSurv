@@ -15,3 +15,4 @@ importFrom("stats", "coef", "model.matrix", "model.response",
              "na.omit", "rnorm", "runif", "vcov")
 importFrom("stringi", "stri_extract_all_words")
 importFrom("stats", "AIC", "coefficients", "logLik")
+importFrom("utils", "setTxtProgressBar", "txtProgressBar")

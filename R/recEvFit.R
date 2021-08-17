@@ -49,8 +49,14 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   if (b.star[length(b.star)] > 500)  b.star[length(b.star)] <- 500
   lambda <- ifelse(data[, riskBef]==TRUE, exp(X %*% b.star[1:(length(b.star)-1)])*data$oldInd2, 0)
   
+  pb <- txtProgressBar(min = 0,            
+                       max = 3*m, 
+                       style = 3,          
+                       char = "=", title="Imputation")
+  
   for (i in 1:m)
   {
+    setTxtProgressBar(pb, i)
     for (j in 1:nrow(data))
     {
       if(data[j, riskBef]==TRUE)
@@ -65,6 +71,7 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   rr <- unique(data[, id_2])
   for (i in 1:m)
   {
+    setTxtProgressBar(pb, m+i)
     col  <- which(colnames(data)==paste0("EprevCOMPoiss", i))
     k <- lapply(unique(data[, id_2]), 
                 function(k) complete.eprev(data, k, id, col))
@@ -81,6 +88,7 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   {
     for (i in 1:m)
     {
+      setTxtProgressBar(pb, 2*m+i)
       eval(parse(text=paste0("modPWP <-
       coxph(", deparse(formula),
                 "+strata(as.factor(100000*", riskBef, "+EprevCOMPoissDef", i, "))+oldInd2+
@@ -90,12 +98,14 @@ recEvFit <- function(formula, data, id, prevEp, riskBef, oldInd,
   }else{
     for (i in 1:m)
     {
+      setTxtProgressBar(pb, 2*m+i)
       eval(parse(text=paste0("modPWP <-
       coxph(", deparse(formula),
                   "+strata(as.factor(100000*", riskBef, "+EprevCOMPoissDef", i, "))+oldInd2, data=data, ...)")))
       out[[i]] <- modPWP
     }
   }
+  close(pb)
   data$oldInd2 <- NULL
   data$ft <- NULL
   

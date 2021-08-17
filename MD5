@@ -1,5 +1,5 @@
-1a8221d0f6be216d4e54b3cac0b1641f *DESCRIPTION
-39bd21e927e3964d3ca7899e67e9b1f0 *NAMESPACE
+e7d171c7cba25b8ae54979baf1fa4663 *DESCRIPTION
+efc940451f8edde56c812f71e27b61b3 *NAMESPACE
 b24df4d04fb78c5bb467975722d11517 *R/accum.sample.R
 d3645e56b9f8c8ebaa087dbbef4a1dd6 *R/com.compute.log.z.R
 274e097ca0cf4e57a6bb5e653c15019b *R/com.log.density.R
@@ -9,10 +9,10 @@ f1a8cb8c8234f140314008c64ef33779 *R/com.log.sum.R
 712e6be852edc17705147d745ba9af03 *R/global.R
 0d63ddb3a8777b9d20ea103a93577e52 *R/print.summary.recEvFit.R
 c028fc175b03f153e331c9bd61a2e9d3 *R/rcom.R
-e863307d76adae52170ade64e17fa4b8 *R/recEvFit.R
+e243ece2978fec9d560fa893c06af9ba *R/recEvFit.R
 8d46b193830ef5200be24149bba8d029 *R/summary.recEvFit.R
 c32776d052d33861347b851b735ad2e9 *data/sim.data.RData
 f116983c56d096d2817ff46aff77eb77 *man/miRecSurv-internal.Rd
-b845269cd930526f8bd71ac8aba27809 *man/miRecSurv-package.Rd
+653b2e505d97be21330e6d8064c05b7b *man/miRecSurv-package.Rd
 268f3fec2158c59ff6bc3a6602cdf1d5 *man/recEvFit.Rd
 dd32b5fd51915be84dd8eeb528a70453 *man/sim.data.Rd
